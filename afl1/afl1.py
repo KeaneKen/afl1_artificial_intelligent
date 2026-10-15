@@ -47,7 +47,7 @@ def graph_search(graph, start, goal, frontier):
 
         neighbors = sorted(graph[node.state])
         if isinstance(frontier, StackFrontier):
-            neighbors.reverse()           # smallest gets popped first
+            neighbors.reverse()          
 
         for n in neighbors:
             if n not in explored and not frontier.contains_state(n):
@@ -56,13 +56,16 @@ def graph_search(graph, start, goal, frontier):
     return None, order
 
 graph = {
-    "Patra Residence":        ["Jembatan Barombong", "Jembatan Kembar Gowa"],
-    "Jembatan Barombong":     ["Patra Residence", "Tanjung Bunga"],
-    "Jembatan Kembar Gowa":   ["Jalan Sultan Alauddin", "Patra Residence"],
+    "Patra Residence":        ["Jalan Andi Mappainga", "Jalan Permandian Alam"],
+    "Jalan Andi Mappainga":   ["Patra Residence", "Taman Panciro Indah"],
+    "Taman Panciro Indah":    ["Jalan Andi Mappainga", "Jembatan Kembar Gowa"],
+    "Jembatan Kembar Gowa":   ["Jalan Sultan Alauddin", "Taman Panciro Indah"],
     "Jalan Sultan Alauddin":  ["Jembatan Kembar Gowa", "Tanjung Bunga"],
+    "Jalan Permandian Alam":   ["Patra Residence", "Jembatan Barombong"],
+    "Jembatan Barombong":     ["Patra Residence", "Tanjung Bunga"],
     "Tanjung Bunga":          ["Jalan Sultan Alauddin", "Jembatan Barombong", "UC Makassar"],
     "UC Makassar":            ["Tanjung Bunga"],
 }
 
-print(graph_search(graph, "Patra Residence", "UC Makassar", QueueFrontier()))
-print(graph_search(graph, "Patra Residence", "UC Makassar", StackFrontier()))
+print("BFS:", graph_search(graph, "Patra Residence", "UC Makassar", QueueFrontier()))
+print("DFS:", graph_search(graph, "Patra Residence", "UC Makassar", StackFrontier()))
